@@ -1,25 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Layout, Icon } from 'react-native-ui-kitten';
+import { Layout, Icon, Button, Text } from 'react-native-ui-kitten';
 import { RNCamera } from 'react-native-camera';
 import * as Animatable from 'react-native-animatable';
+import BottomSheet from 'reanimated-bottom-sheet';
 import Permissions, { PERMISSIONS } from 'react-native-permissions';
 import { light } from '@eva-design/eva';
 
 export const ROUTER_KEY_BOOK_SCANNER = 'BookScanner';
 
-const ScanIcon = () => (
-  <Icon
-    //ref={scanIconRef}
-    name="barcode-scan"
-    style={{
-      color: light['color-danger-500'],
-      position: 'absolute',
-      top: 15,
-      right: 15,
-      fontSize: 24,
-    }}
-  />
-);
 const AnimatedIcon = Animatable.createAnimatableComponent(Icon);
 
 export const BookScanner = () => {
@@ -49,10 +37,36 @@ export const BookScanner = () => {
   const takePicture = async () => {
     if (cameraRef) {
       const options = { quality: 0.5, base64: true };
-      const data = await cameraRef.current.takePictureAsync();
+      const data = await cameraRef.current.takePictureAsync(options);
       console.log(data.uri);
     }
   };
+  const renderContent = () => (
+    <Layout style={{ backgroundColor: 'white', height: '100%', padding: 15 }}>
+      <Text>Content</Text>
+    </Layout>
+  );
+
+  const renderHeader = () => (
+    <Layout
+      style={{
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+        borderTopEndRadius: 20,
+        borderTopStartRadius: 20,
+      }}>
+      <Layout
+        style={{
+          borderRadius: 10,
+          height: 5,
+          width: 50,
+          backgroundColor: 'lightgray',
+        }}
+      />
+    </Layout>
+  );
   return (
     <Layout style={{ flex: 1 }}>
       <Layout
@@ -73,22 +87,15 @@ export const BookScanner = () => {
             borderRadius: 10,
             backgroundColor: 'transparent',
           }}>
-          <AnimatedIcon
-            //ref={scanIconRef}
-            animation="flash"
-            easing="ease-in-out-cubic"
-            iterationCount="infinite"
-            name="barcode-scan"
-            style={{
-              color: light['color-danger-700'],
-              position: 'absolute',
-              top: 15,
-              left: 15,
-              fontSize: 24,
-            }}
-          />
+          <AnimatedScanIcon />
         </Layout>
       </Layout>
+      <BottomSheet
+        snapPoints={['100%', 200, 0]}
+        initialSnap={1}
+        renderContent={renderContent}
+        renderHeader={renderHeader}
+      />
       <RNCamera
         ref={cameraRef}
         style={{ flex: 1 }}
@@ -106,6 +113,18 @@ export const BookScanner = () => {
   );
 };
 
-BookScanner.navigationOptions = () => ({
-  //header: null,
-});
+const AnimatedScanIcon = () => (
+  <AnimatedIcon
+    animation="flash"
+    easing="ease-in-out-cubic"
+    iterationCount="infinite"
+    name="barcode-scan"
+    style={{
+      color: light['color-danger-700'],
+      position: 'absolute',
+      top: 15,
+      left: 15,
+      fontSize: 24,
+    }}
+  />
+);
