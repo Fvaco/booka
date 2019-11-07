@@ -25,10 +25,9 @@ export const BookList = ({ navigation }) => {
   const renderItem = ({ item: { title, author, image } }) => (
     <BookListItem title={title} subtitle={author} image={image} />
   );
-  const BarcodeIcon = style => {
-    console.log(light);
-    return <Icon style={{ ...style, width: 'auto' }} name="barcode-scan" />;
-  };
+  const BarcodeIcon = style => (
+    <Icon style={{ ...style, width: 'auto' }} name="barcode-scan" />
+  );
   return (
     <StyledScreenLayout>
       <List
