@@ -1,4 +1,4 @@
-package com.booka;
+package com.fvaco.booka;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

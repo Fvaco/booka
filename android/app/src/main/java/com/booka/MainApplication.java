@@ -1,4 +1,4 @@
-package com.booka;
+package com.fvaco.booka;
 
 import android.app.Application;
 import android.content.Context;

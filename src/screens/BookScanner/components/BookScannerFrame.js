@@ -29,7 +29,8 @@ const StyledScannerFrameWrapper = styled(Layout)`
   width: 100%;
   height: 100%;
   position: absolute;
-  padding: 20px;
+
+  padding: 30px;
   z-index: 1;
   background-color: transparent;
 `;
