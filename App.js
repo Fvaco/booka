@@ -9,9 +9,11 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { AppRouter } from './router';
 import { createHttpLink } from 'apollo-link-http';
 
-const link = createHttpLink({ uri: 'http://localhost:4000/graphql/' });
+const link = createHttpLink({
+  uri: 'https://zen-mahavira-6af357.netlify.com/.netlify/functions/graphql/',
+});
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql/',
+  uri: 'https://zen-mahavira-6af357.netlify.com/.netlify/functions/graphql/',
   cache: new InMemoryCache(),
   link,
 });
